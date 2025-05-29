@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>截屏</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+      #jieping {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+      }
+
+      #jiepingzi {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="jieping">
+      <div id="jiepingzi"></div>
+    </div>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+      window.onload = function () {
+        const targetElement = document.getElementById('jieping');
+        // 转换为图片
+        html2canvas(targetElement, {
+          allowTaint: true, // 允许跨域资源
+          useCORS: true, // 启用 CORS 请求
+          scale: 2, // 提高清晰度（2倍缩放）
+          backgroundColor: '#ffffff', // 背景色
+        }).then(canvas => {
+          const dataURL = canvas.toDataURL('image/png');
+          // 下载图片
+          const link = document.createElement('a');
+          link.download = 'screenshot.png';
+          link.href = dataURL;
+          link.click();
+        });
+      };
+    </script>
+  </body>
+</html>

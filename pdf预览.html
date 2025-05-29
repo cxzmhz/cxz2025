@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pdf预览</title>
+  </head>
+  <body>
+    <iframe
+      src="./assets/15.设计模式面试真题-31页.pdf"
+      width="100%"
+      height="200px"
+      frameborder="0"
+    >
+      <p>当前浏览器不支持 PDF 预览，请<a href="文件地址.pdf">下载查看</a></p>
+    </iframe>
+    <embed
+      src="./assets/15.设计模式面试真题-31页.pdf"
+      type="application/pdf"
+      width="100%"
+      height="200px"
+    />
+
+    <!-- object 方案，如果不支持 object，则会显示object标签里面的包裹着的元素，所以兼容的办法可以在object标签里面包裹一个embed标签，这样如果object不支持的话，则会显示embed标签里面的内容 -->
+    <object
+      data="./assets/15.设计模式面试真题-31页.pdf"
+      type="application/pdf"
+      width="100%"
+      height="100px"
+    >
+      <a href="文件地址.pdf">下载 PDF</a>
+    </object>
+    <object
+      data="./assets/15.设计模式面试真题-31页.pdf"
+      type="application/pdf"
+      width="100%"
+      height="100px"
+    >
+      <embed
+        src="./assets/15.设计模式面试真题-31页.pdf"
+        type="application/pdf"
+        width="100%"
+        height="200px"
+      />
+    </object>
+  </body>
+</html>

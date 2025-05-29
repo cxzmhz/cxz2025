@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ceshi</title>
+    <script src="./ceshi.js"></script>
+    <script src="./moduleA.mjs" type="module"></script>
+    <!-- <script src="./moduleB.mjs" type="module"></script> -->
+    <style>
+      .box {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: flex-end;
+        align-content: flex-end;
+        /* place-content: flex-end; 这个其实就是justify-content和align-content的简写 */
+        width: 600px;
+        height: 400px;
+        margin-top: 20px;
+        border: 1px solid #000;
+      }
+      .item {
+        width: 50px;
+        height: 50px;
+        background-color: #ccc;
+      }
+
+      .item:nth-child(3) {
+        margin-left: 80%;
+      }
+
+      .scrollbox {
+        width: 200px;
+        height: 500px;
+        border: 1px solid #000;
+        overflow: auto;
+      }
+      .scrollitem {
+        width: 30px;
+        height: 50px;
+      }
+      .specialItem {
+        position: sticky;
+        top: 20px;
+        background-color: aqua;
+      }
+      .positionItemWrap1 {
+        position: relative;
+        z-index: 5;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+      }
+      .positionItem1 {
+        position: absolute;
+        z-index: 100;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        background-color: red;
+      }
+      .positionItemWrap2 {
+        position: relative;
+        z-index: 6;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+      }
+      .positionItem2 {
+        position: absolute;
+        z-index: 7;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        background-color: blue;
+        top: -20px;
+      }
+      .flexWrap {
+        border: 1px solid #000;
+        display: flex;
+        width: 100px;
+        height: 100px;
+      }
+      .flexItem {
+        width: 50px;
+        height: 50px;
+      }
+      .flexItem2 {
+        background-color: aqua;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <button id="btn">点击按钮</button> -->
+      <div class="box">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+      </div>
+      <div class="scrollbox">
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem specialItem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+        <div class="scrollitem">1</div>
+      </div>
+      <div class="positionItemWrap">
+        <div class="positionItemWrap1">
+          <div class="positionItem1">1</div>
+        </div>
+        <div class="positionItemWrap2">
+          <div class="positionItem2">2</div>
+        </div>
+      </div>
+      <div class="flexWrap">
+        <div class="flexItem">1</div>
+        <div class="flexItem2">2</div>
+        <div class="flexItem">3</div>
+      </div>
+    </div>
+    <script>
+      window.onload = function () {
+        const obj = {hello: 'world'};
+        const blob = new Blob([JSON.stringify(obj, null, 2)], {
+          type: 'application/json',
+        });
+        const uu = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = 'screenshot.json';
+        link.href = uu;
+        // link.click();
+        // link.dispatchEvent(new MouseEvent('click')); // 这种方式也能触发点击事件
+      };
+      // const superObj = {a: 1, b: {bb: 2}};
+      // const newObj = Object.create(superObj);
+      // newObj.b.bb = 3;
+      // // key in 都会遍历原型链上的属性
+      // for (let key in newObj) {
+      //   if (key in newObj) {
+      //     console.log('.....in', key);
+      //   }
+      // }
+      // // Object.keys()不会遍历原型链上的属性
+      // for (let key of Object.keys(newObj)) {
+      //   console.log('.......keys', key);
+      // }
+
+      // window.onload = function () {
+      //   const app = document.getElementById('app');
+      //   app.addEventListener(
+      //     'click',
+      //     function (e) {
+      //       console.log('app1');
+      //       const phase = e.eventPhase;
+      //       console.log(phase);
+      //     },
+      //     true
+      //   );
+      //   const btn = document.getElementById('btn');
+      //   btn.addEventListener('click', function (e) {
+      //     console.log('click1');
+      //     const phase = e.eventPhase;
+      //     console.log(phase);
+      //   });
+      //   btn.addEventListener('click', function (e) {
+      //     console.log('click2');
+      //     const phase = e.eventPhase;
+      //     console.log(phase);
+      //   });
+      // };
+    </script>
+  </body>
+</html>
