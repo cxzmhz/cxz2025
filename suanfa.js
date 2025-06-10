@@ -953,32 +953,6 @@ const a22 = prices => {
   return dfs(n - 1, 0);
 };
 
-// 516. 最长回文子序列
-const a23 = s => {
-  const n = s.length;
-  const cache = new Array(n).fill(0).map(() => new Array(n).fill(-1));
-
-  const dfs = (i, j) => {
-    if (cache[i][j] !== -1) return cache[i][j];
-    if (i > j) {
-      cache[i][j] = 0;
-      return 0;
-    }
-    if (i === j) {
-      cache[i][j] = 1;
-      return 1;
-    }
-    if (s[i] === s[j]) {
-      cache[i][j] = dfs(i + 1, j - 1) + 2;
-    } else {
-      cache[i][j] = Math.max(dfs(i + 1, j), dfs(i, j - 1));
-    }
-    return cache[i][j];
-  };
-
-  return dfs(0, n - 1);
-};
-
 // 739. 每日温度
 const a24 = temperatures => {
   const n = temperatures.length;
@@ -993,26 +967,6 @@ const a24 = temperatures => {
       ans[index] = i - index;
     }
     stack.push(i);
-  }
-  return ans;
-};
-
-// 239. 滑动窗口最大值
-const a25 = (nums, k) => {
-  const n = nums.length;
-  const ans = [];
-  const queue = [];
-  for (let i = 0; i < n; i++) {
-    while (queue.length && nums[i] > nums[queue[queue.length - 1]]) {
-      queue.pop();
-    }
-    queue.push(i);
-    if (i - queue[0] + 1 > k) {
-      queue.shift();
-    }
-    if (i >= k - 1) {
-      ans.push(nums[queue[0]]);
-    }
   }
   return ans;
 };
@@ -1265,30 +1219,6 @@ const a35 = (nums, k) => {
     }
   }
   return ans.length;
-};
-
-// 1143.最长公共子序列  text1 = "abcde", text2 = "ace"
-
-const a36 = (text1, text2) => {
-  const n = text1.length;
-  const m = text2.length;
-  const f = new Array(n).fill(false).map(() => new Array(m).fill(false));
-
-  const dfs = (i, j) => {
-    if (i === n || j === m) {
-      return 0;
-    }
-    if (f[i][j] !== false) return f[i][j];
-
-    if (text1[i] === text2[j]) {
-      f[i][j] = dfs(i + 1, j + 1) + 1;
-      return f[i][j];
-    } else {
-      f[i][j] = Math.max(dfs(i + 1, j), dfs(i, j + 1));
-      return f[i][j];
-    }
-  };
-  return dfs(0, 0);
 };
 
 // 1979. 找出数组的最大公约数  [2,5,6,9,10]
@@ -1734,4 +1664,27 @@ const a54 = (text1, text2) => {
   };
 
   return dfs(0, 0);
+};
+
+// 516. 最长回文子序列
+const a55 = s => {
+  const n = s.length;
+  // f 是用来记录2个下标之间的最长回文子序列的长度
+  const f = new Array(n).fill(0).map(() => new Array(n).fill(false));
+  const dfs = (i, j) => {
+    if (f[i][j] !== false) return f[i][j];
+    // 如果起始下标大于结束下标，那么长度为0
+    if (i > j) return (f[i][j] = 0);
+    // 如果起始下标等于结束下标，那么长度为1
+    if (i === j) {
+      return (f[i][j] = 1);
+    }
+    if (s[i] === s[j]) {
+      f[i][j] = dfs(i + 1, j - 1) + 2;
+    } else {
+      f[i][j] = Math.max(dfs(i + 1, j), dfs(i, j - 1));
+    }
+    return f[i][j];
+  };
+  return dfs(0, n - 1);
 };
