@@ -3,10 +3,10 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <link rel="stylesheet" href="file:///c:\Users\pc\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\katex\katex.min.css">
+      <link rel="stylesheet" href="file:////Users/chenxuezhong/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.18/crossnote/dependencies/katex/katex.min.css">
       
       
-      <script type="text/javascript" src="file:///c:\Users\pc\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.18\crossnote\dependencies\mermaid\mermaid.min.js" charset="UTF-8"></script>
+      <script type="text/javascript" src="file:////Users/chenxuezhong/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.18/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
       
       
       <style>
@@ -353,7 +353,6 @@
 <li><a href="#%E6%80%BB%E7%BB%93-6">总结</a></li>
 </ul>
 </li>
-<li><a href="#%E7%BB%9F%E8%AE%A1%E5%85%A8%E7%AB%99%E6%AF%8F%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E8%80%97%E6%97%B6%E8%AF%A5%E5%A6%82%E4%BD%95%E5%81%9A">统计全站每一个静态资源加载耗时，该如何做</a></li>
 <li><a href="#%E9%80%80%E5%87%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B9%8B%E5%89%8D%E5%8F%91%E9%80%81%E7%A7%AF%E5%8E%8B%E7%9A%84%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E8%AF%B7%E6%B1%82%E8%AF%A5%E5%A6%82%E4%BD%95%E5%81%9A">退出浏览器之前，发送积压的埋点数据请求，该如何做？</a>
 <ul>
 <li><a href="#%E4%B8%80-%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88">一、核心实现方案</a>
@@ -1186,7 +1185,6 @@
 <ul>
 <li>浏览器为了确保返回的几何属性值是最新的，必须 同步计算最新的布局信息，这一过程会强制触发重排。</li>
 </ul>
-<hr>
 <hr>
 <hr>
 <hr>
@@ -3573,9 +3571,7 @@ params<span class="token punctuation">.</span><span class="token method function
 <hr>
 <hr>
 <hr>
-<h1 id="统计全站每一个静态资源加载耗时该如何做">统计全站每一个静态资源加载耗时，该如何做 </h1>
-<pre data-role="codeBlock" data-info="js" class="language-javascript js"><code>observer<span class="token punctuation">.</span><span class="token method function property-access">observe</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'resource'</span><span class="token punctuation">,</span> <span class="token literal-property property">buffered</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><h1 id="退出浏览器之前发送积压的埋点数据请求该如何做">退出浏览器之前，发送积压的埋点数据请求，该如何做？ </h1>
+<h1 id="退出浏览器之前发送积压的埋点数据请求该如何做">退出浏览器之前，发送积压的埋点数据请求，该如何做？ </h1>
 <p>在浏览器退出前可靠发送积压的埋点数据，可通过以下方案实现：</p>
 <hr>
 <h3 id="一-核心实现方案">一、核心实现方案 </h3>

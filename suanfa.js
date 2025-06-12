@@ -1601,23 +1601,6 @@ const a51 = root => {
   return ans;
 };
 
-// 337. 打家劫舍 III
-
-const a52 = root => {
-  // 每次返回的是选和不选当前节点的最大值
-  const dfs = node => {
-    if (node === null) return [0, 0];
-    const val = node.val;
-    const [cl, nl] = dfs(node.left);
-    const [cr, nr] = dfs(node.right);
-    const chooseVal = val + nl + nr;
-    const notChooseVal = Math.max(cl + cr, cl + nr, nl + cr, nl + nr);
-    return [chooseVal, notChooseVal];
-  };
-  const [choose, notChoose] = dfs(root);
-  return Math.max(choose, notChoose);
-};
-
 // 239. 滑动窗口最大值
 
 const a53 = (nums, k) => {
@@ -1687,4 +1670,27 @@ const a55 = s => {
     return f[i][j];
   };
   return dfs(0, n - 1);
+};
+
+// 337. 打家劫舍 III
+const a56 = root => {
+  // 每次返回的是选和不选当前节点的最大值
+  const dfs = node => {
+    if (node === null) return [0, 0];
+    const [chooseL, notChooseL] = dfs(node.left);
+    const [chooseR, notChooseR] = dfs(node.right);
+    const val = node.val;
+    // 如果选择了当前节点，那么左右节点就都不能选
+    const choose = val + notChooseL + notChooseR;
+    // 如果没有选择当前节点，那么左右节点可以选也可以不选
+    const notChoose = Math.max(
+      chooseL + chooseR,
+      chooseL + notChooseR,
+      notChooseL + chooseR,
+      notChooseL + notChooseR
+    );
+    return [choose, notChoose];
+  };
+  const [choose, notChoose] = dfs(root);
+  return Math.max(choose, notChoose);
 };
