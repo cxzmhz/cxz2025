@@ -292,17 +292,29 @@ Function.prototype.myBind = function (obj) {
   };
 };
 
-// 深克隆
+// 深克隆(深拷贝)
 const deepClone = (obj, cache = new WeakMap()) => {
   if (obj === null) return obj;
+  // 复制日期和正则
   if (obj instanceof Date) return new Date(obj);
   if (obj instanceof RegExp) return new RegExp(obj);
   if (typeof obj !== 'object') return obj;
+  // 复制函数
+  if (typeof obj === 'function') {
+    return eval('(' + obj.toString() + ')');
+  }
   if (cache.get(obj)) return cache.get(obj);
   const cloneObj = new obj.constructor();
   cache.set(obj, cloneObj);
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
+  // 复制数组
+  if (Array.isArray(obj)) {
+    for (let i = 0; i < obj.length; i++) {
+      cloneObj[i] = deepClone(obj[i], cache);
+    }
+  } else {
+    // 复制对象，包含以symbol作为属性的
+    const keys = [...Object.keys(obj), ...Object.getOwnPropertySymbols(obj)];
+    for (let key of keys) {
       cloneObj[key] = deepClone(obj[key], cache);
     }
   }
@@ -999,45 +1011,6 @@ const a26 = n => {
   return ans;
 };
 
-// 131. 分割回文串
-const a27 = s => {
-  const n = s.length;
-  const ans = [];
-  const path = [];
-
-  const isHui = str => {
-    let l = 0;
-    let r = str.length - 1;
-    while (l < r) {
-      if (str[l] !== str[r]) {
-        return false;
-      } else {
-        l++;
-        r--;
-      }
-    }
-    return true;
-  };
-
-  const dfs = i => {
-    if (i === n) {
-      ans.push([...path]);
-      return;
-    }
-    for (let j = 0; j < n; j++) {
-      const str = s.substring(i, j + 1);
-      if (isHui(str)) {
-        path.push(str);
-        dfs(j + 1);
-        path.pop();
-      }
-    }
-  };
-
-  dfs(0);
-  return ans;
-};
-
 // 78. 子集
 const a28 = nums => {
   const n = nums.length;
@@ -1693,4 +1666,98 @@ const a56 = root => {
   };
   const [choose, notChoose] = dfs(root);
   return Math.max(choose, notChoose);
+};
+
+// 131. 分割回文串
+const a57 = s => {
+  const n = s.length;
+  const ans = [];
+  const path = [];
+
+  const isHui = str => {
+    const str2 = str.split('').reverse().join('');
+    return str === str2;
+  };
+
+  const dfs = i => {
+    if (i === n && path.length) {
+      ans.push([...path]);
+      return;
+    }
+
+    for (let j = i; j < n; j++) {
+      const str = s.substring(i, j + 1);
+      if (isHui(str)) {
+        path.push(str);
+        dfs(j + 1);
+        path.pop();
+      }
+    }
+  };
+
+  dfs(0);
+  return ans;
+};
+
+// 88. 合并两个有序数组
+const a58 = function (nums1, m, nums2, n) {
+  let p = m + n - 1;
+  let p1 = m - 1;
+  let p2 = n - 1;
+  while (p >= 0) {
+    if (p1 < 0 || nums1[p1] < nums2[p2]) {
+      nums1[p] = nums2[p2];
+      p2--;
+    } else {
+      nums1[p] = nums1[p1];
+      p1--;
+    }
+    p--;
+  }
+  return nums1;
+};
+
+// 前端实现并发请求数量控制
+
+const concurrencyRequest = (urls, maxNum) => {
+  return new Promise(resolve => {
+    if (urls.length === 0) {
+      resolve([]);
+      return;
+    }
+    const results = [];
+    let index = 0; // 下一个请求的下标
+    let count = 0; // 当前请求完成的数量
+
+    // 发送请求
+    async function request() {
+      if (index === urls.length) return;
+      const i = index; // 保存序号，使result和urls相对应
+      const url = urls[index];
+      index++;
+      console.log(url);
+      try {
+        const resp = await fetch(url);
+        // resp 加入到results
+        results[i] = resp;
+      } catch (err) {
+        // err 加入到results
+        results[i] = err;
+      } finally {
+        count++;
+        // 判断是否所有的请求都已完成
+        if (count === urls.length) {
+          console.log('完成了');
+          resolve(results);
+        }
+        request();
+      }
+    }
+
+    // maxNum和urls.length取最小进行调用
+    const times = Math.min(maxNum, urls.length);
+    for (let i = 0; i < times; i++) {
+      request();
+    }
+  });
 };
