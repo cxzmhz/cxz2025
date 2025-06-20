@@ -347,52 +347,62 @@ SuperFn.prototype.say = function () {
   console.log('hi');
 };
 
-// Object.create() 是 JavaScript 中用于创建一个新对象的核心方法，它允许你指定新对象的原型​
-function clone(parent, child) {
+// Object.create() 以一个现有对象作为原型，创建一个新对象。
+function inheritFn(parent, child) {
   child.prototype = Object.create(parent.prototype);
   child.prototype.constructor = child;
 }
-
 function SubFn(name, age) {
   SuperFn.call(this, name);
   this.age = age;
 }
+inheritFn(SuperFn, SubFn);
 SubFn.prototype.getAge = function () {
+  console.log(this.age);
   return this.age;
 };
 
-clone(SuperFn, SubFn);
+// const subObj = new SubFn('joey', 18);
+// subObj.getAge();
+// -----
+// -----
+// -----
+// -----
+// -----
 
 // 求最长递增子序列的长度
 var lengthOfLIS = function (nums) {
   // 贪心算法+二分法，时间复杂度为nlogn
-  // var ans = [];
-  // for (var i = 0; i < nums.length; i++) {
-  //     var left = 0, right = ans.length;
-  //     while (left < right) { //二分法
-  //         var mid = left + right >> 1;
-  //         if (ans[mid] < nums[i]) left = mid + 1;
-  //         else right = mid;
-  //     }
-  //     if (right >= ans.length) ans.push(nums[i]); //如果找不到 在ans最后增加一项nums[i]
-  //     else ans[right] = nums[i];
-  // }
-  // return ans.length;
+  var ans = [];
+  for (var i = 0; i < nums.length; i++) {
+    var left = 0,
+      right = ans.length;
+    while (left < right) {
+      //二分法
+      var mid = (left + right) >> 1;
+      if (ans[mid] < nums[i]) left = mid + 1;
+      else right = mid;
+    }
+    if (right >= ans.length)
+      ans.push(nums[i]); //如果找不到 在ans最后增加一项nums[i]
+    else ans[right] = nums[i];
+  }
+  return ans.length;
 
   // 动态规划，时间复杂度为n^2，主要是通过计算在i这个位置，以i为结束节点时的最长递增子序列长度
-  if (nums.length === 0) return 0;
-  let max = 0;
-  let dp = [];
-  for (let i = 0; i < nums.length; i++) {
-    dp[i] = 1;
-    for (let j = 0; j < i; j++) {
-      if (nums[j] < nums[i]) {
-        dp[i] = Math.max(dp[i], dp[j] + 1);
-      }
-    }
-    max = Math.max(max, dp[i]);
-  }
-  return max;
+  // if (nums.length === 0) return 0;
+  // let max = 0;
+  // let dp = [];
+  // for (let i = 0; i < nums.length; i++) {
+  //   dp[i] = 1;
+  //   for (let j = 0; j < i; j++) {
+  //     if (nums[j] < nums[i]) {
+  //       dp[i] = Math.max(dp[i], dp[j] + 1);
+  //     }
+  //   }
+  //   max = Math.max(max, dp[i]);
+  // }
+  // return max;
 };
 
 // 最长公共子序列，使用动态规划
