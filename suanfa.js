@@ -1550,17 +1550,20 @@ const a49 = s => {
 // 41. 缺失的第一个正数
 const a50 = nums => {
   const n = nums.length;
+  // 先将负数处理成一个后面不用理会的数字，比n大就可以，这里处理成了n+1
   for (let i = 0; i < n; i++) {
     if (nums[i] <= 0) {
       nums[i] = n + 1;
     }
   }
+  // 将正整数1~n映射到数字0~n-1，如果碰到了，就将对应index的值处理成负数就可以了
   for (let i = 0; i < n; i++) {
     let item = Math.abs(nums[i]);
     if (item >= 1 && item <= n) {
       nums[item - 1] = -Math.abs(nums[item - 1]);
     }
   }
+  // 哪一个index的值不是负数，那么就说明上一次的遍历中没有访问到，那么就是有问题的那个数字
   for (let i = 0; i < n; i++) {
     if (nums[i] > 0) return i + 1;
   }
@@ -1575,7 +1578,9 @@ const a51 = root => {
     const val = node.val;
     const left = dfs(node.left);
     const right = dfs(node.right);
+    // 这里计算的这个res是开放的，可以被其父节点连接计算，如果计算了val + left + right，那么就不能被父节点连接计算了
     const res = Math.max(val, val + left, val + right);
+    // 这里计算的是所有可能路径下的最大值
     ans = Math.max(res, ans, val + left + right);
     return res;
   };
@@ -1768,6 +1773,39 @@ const concurrencyRequest = (urls, maxNum) => {
     const times = Math.min(maxNum, urls.length);
     for (let i = 0; i < times; i++) {
       request();
+    }
+  });
+};
+
+const a59 = root => {
+  const dfs = node => {
+    if (!node) return [0, 0];
+    const [ncL, cL] = dfs(node.left);
+    const [ncR, cR] = dfs(node.right);
+    return [
+      node.val + ncL + ncR,
+      Math.max(ncL + ncR, ncL + cR, cL + ncR, cL + cR),
+    ];
+  };
+  const [chooseCur, notChooseCur] = dfs(root);
+  return Math.max(chooseCur, notChooseCur);
+};
+
+const a60 = pro => {
+  return new Promise((resolve, reject) => {
+    const ans = [];
+    const n = pro.length;
+    for (let i = 0; i < n; i++) {
+      pro
+        .then(res => {
+          ans[i] = res;
+          if (ans.length === n) {
+            resolve(ans);
+          }
+        })
+        .catch(err => {
+          reject(err);
+        });
     }
   });
 };
