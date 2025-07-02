@@ -1777,26 +1777,13 @@ const concurrencyRequest = (urls, maxNum) => {
   });
 };
 
-const a59 = root => {
-  const dfs = node => {
-    if (!node) return [0, 0];
-    const [ncL, cL] = dfs(node.left);
-    const [ncR, cR] = dfs(node.right);
-    return [
-      node.val + ncL + ncR,
-      Math.max(ncL + ncR, ncL + cR, cL + ncR, cL + cR),
-    ];
-  };
-  const [chooseCur, notChooseCur] = dfs(root);
-  return Math.max(chooseCur, notChooseCur);
-};
-
-const a60 = pro => {
+// 模拟Promise.all
+const proAll = pros => {
   return new Promise((resolve, reject) => {
     const ans = [];
-    const n = pro.length;
+    const n = pros.length;
     for (let i = 0; i < n; i++) {
-      pro
+      pros
         .then(res => {
           ans[i] = res;
           if (ans.length === n) {
@@ -1808,39 +1795,6 @@ const a60 = pro => {
         });
     }
   });
-};
-
-const a61 = nums => {
-  const ans = [];
-  const n = nums.length;
-  for (let i = 0; i < n - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) {
-      continue;
-    }
-    let l = i + 1;
-    let r = n - 1;
-    while (l < r) {
-      if (l > i + 1 && nums[l] === nums[l - 1]) {
-        l++;
-        continue;
-      }
-      if (r < n - 1 && nums[r] === nums[r + 1]) {
-        r--;
-        continue;
-      }
-      const res = nums[i] + nums[l] + nums[r];
-      if (res === 0) {
-        ans.push([nums[i], nums[l], nums[r]]);
-        l++;
-        r--;
-      } else if (res < 0) {
-        l++;
-      } else {
-        r--;
-      }
-    }
-  }
-  return ans;
 };
 
 // 123. 买卖股票的最佳时机 III
@@ -1922,3 +1876,35 @@ function myCompose(...fns) {
 
   return composeFn;
 }
+
+// typescript算法题备份
+// type DeepPartial<T extends object> = {
+//   [key in keyof T]?: T[key] extends object ? DeepPartial<T[key]> : T[key];
+// };
+
+// const debounce = (fn: (params: any) => any, config: { wait: number }) => {
+//   const { wait } = config;
+//   let timeId: number | null = null;
+//   let rejectTmp;
+//   const run = (...param) => {
+//     if (timeId !== null) {
+//       clearTimeout(timeId as number);
+//     }
+//     return new Promise((resolve, reject) => {
+//       rejectTmp = reject;
+//       timeId = setTimeout(() => {
+//         const res = fn.call(this, ...param);
+//         resolve(res);
+//       }, wait);
+//     });
+//   };
+//   const cancel = () => {
+//     if (timeId !== null) {
+//       clearTimeout(timeId);
+//       if (rejectTmp) {
+//         rejectTmp();
+//       }
+//     }
+//   };
+//   return { run, cancel };
+// };
