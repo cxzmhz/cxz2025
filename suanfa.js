@@ -246,20 +246,21 @@ const mergeSort = arr => {
 };
 
 // 防抖
-const debounce = (fn, long) => {
+// 这里要使用function的方式来定义函数，则后面使用this的时候就是直接用的是里面的箭头函数定义是所在环境的this
+function debounce(fn, long) {
   let timer = null;
   return function (...args) {
-    const context = this;
     if (timer !== null) clearTimeout(timer);
     timer = setTimeout(() => {
       timer = null;
-      fn.apply(context, args);
+      fn.apply(this, args);
     }, long);
   };
-};
+}
 
 // 节流
-const throttle = (fn, delay) => {
+// 这里要使用function的方式来定义函数，则后面使用this的时候就是直接用的是里面的箭头函数定义是所在环境的this
+function throttle(fn, delay) {
   let isFnIn = false;
   return function (...args) {
     if (!isFnIn) {
@@ -270,7 +271,7 @@ const throttle = (fn, delay) => {
       }, delay);
     }
   };
-};
+}
 
 // 模拟new操作符
 function createNew(func, ...args) {
@@ -839,8 +840,7 @@ const a16_1 = nums => {
     cache[i] = res;
     return res;
   };
-  dfs(n - 1);
-  return cache[n - 1];
+  return dfs(n - 1);
 };
 
 // 494. 目标和
@@ -1809,3 +1809,116 @@ const a60 = pro => {
     }
   });
 };
+
+const a61 = nums => {
+  const ans = [];
+  const n = nums.length;
+  for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+    let l = i + 1;
+    let r = n - 1;
+    while (l < r) {
+      if (l > i + 1 && nums[l] === nums[l - 1]) {
+        l++;
+        continue;
+      }
+      if (r < n - 1 && nums[r] === nums[r + 1]) {
+        r--;
+        continue;
+      }
+      const res = nums[i] + nums[l] + nums[r];
+      if (res === 0) {
+        ans.push([nums[i], nums[l], nums[r]]);
+        l++;
+        r--;
+      } else if (res < 0) {
+        l++;
+      } else {
+        r--;
+      }
+    }
+  }
+  return ans;
+};
+
+// 123. 买卖股票的最佳时机 III
+
+const a62 = prices => {
+  const n = prices.length;
+  const left = new Array(n).fill(0);
+  const right = new Array(n).fill(0);
+  let ans = 0;
+
+  let minLeft = prices[0];
+  let maxRight = prices[n - 1];
+  for (let i = 1; i < n; i++) {
+    left[i] = Math.max(left[i - 1], prices[i] - minLeft);
+    minLeft = Math.min(minLeft, prices[i]);
+  }
+  for (let j = n - 2; j >= 0; j--) {
+    right[j] = Math.max(right[j + 1], maxRight - prices[j]);
+    maxRight = Math.max(maxRight, prices[j]);
+  }
+  for (let k = 0; k < n; k++) {
+    ans = Math.max(ans, left[k] + right[k]);
+  }
+  return ans;
+};
+// 123. 买卖股票的最佳时机 III
+
+const a63 = prices => {
+  let buy1 = -prices[0],
+    sell1 = 0;
+  let buy2 = -prices[0],
+    sell2 = 0;
+  for (let i = 1; i < prices.length; i++) {
+    buy1 = Math.max(buy1, -prices[i]);
+    sell1 = Math.max(sell1, buy1 + prices[i]);
+    buy2 = Math.max(buy2, sell1 - prices[i]);
+    sell2 = Math.max(sell2, buy2 + prices[i]);
+  }
+  return sell2;
+};
+
+// 柯里化
+function curry(fn, args) {
+  const length = fn.length;
+  args = args || [];
+  return function () {
+    args = args.concat([...arguments]);
+    if (args.length < length) {
+      curry.call(this, fn, args);
+    } else {
+      fn.apply(this, ...args);
+    }
+  };
+}
+
+// 通用的组合函数实现
+function myCompose(...fns) {
+  if (!fns.length) {
+    throw new TypeError('必须传入函数类型');
+  }
+  for (let fn of fns) {
+    if (typeof fn !== 'function') {
+      throw new TypeError('必须传入函数类型');
+    }
+  }
+
+  // 返回一个自动依次执行的函数
+  function composeFn(...args) {
+    // 先执行一次
+    let index = 0;
+    let res = fns[index].apply(this, args);
+
+    // 拿到上一次的结果调用下一个函数，获得新的结果
+    while (++index < fns.length) {
+      res = fns[index].call(this, res);
+    }
+    return res;
+  }
+
+  return composeFn;
+}
