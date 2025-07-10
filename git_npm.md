@@ -106,6 +106,21 @@ git 获取用户名和邮箱
 git config user.name
 git config user.email
 
+## git 如何在一个文件夹下初始化并绑定远程仓库
+
+1. 先在 github 中创建远程仓库
+2. 在本地文件夹下执行
+
+```bash
+git init
+git add .
+git commit -m "init"
+git branch -m master // 这一步是将当前分支重命名为 master
+git remote add origin https://github.com/xxxxx.git
+git push -u origin master
+
+```
+
 # pnpm
 
 ```bash
