@@ -138,7 +138,8 @@ pnpm store path          # 显示全局存储位置（默认：系统特定目�
 
 # npm
 
-npm config set registry https://registry.npmmirror.com
+npm config set registry https://registry.npmmirror.com //设置成阿里的 npm 源
+npm config set registry=https://registry.npmjs.org //原生的源
 
 http://nexus.mixcapp.cn/repository/npm-hosted/ // 华润的 npm 源
 
