@@ -235,3 +235,13 @@ npm version preminor : 5.0.0-0–> 5.1.0-0
 npm version major : 5.1.0-0 -->6.0.0
 如果有预发布号：且minor和patch有任意一个不是0，则升级一位major，其他位都置为0，并去掉prerelease。
 ```
+
+## nvm
+
+### nvm 设置默认 node 版本
+
+> nvm 切换版本一般只在当前的终端有效，新开终端就会切换为默认版本，所以可以通过设置默认版本的方式来切换 node 版本
+
+```bash
+nvm alias default 16.6.0
+```
