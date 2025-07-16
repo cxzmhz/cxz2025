@@ -121,6 +121,30 @@ git push -u origin master
 
 ```
 
+## git SSH 公钥拉取代码（使用及配置）
+
+1. 查看是否已经有了`SSH key`
+
+```bash
+ls -alF ~/.ssh
+```
+
+2. 生成 SSH key
+
+```bash
+ssh-keygen -t rsa -C "chenxuezhong@xiaoice.cn"
+```
+
+> 后面直接一直按回车就可以了
+> 完成后可以再执行第一步看是否已经生成成功了 3. 使用 SSH key
+> 输出公钥信息
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+> 把输出的所有内容都要复制出来，然后粘贴到对应仓库的`SSH keys`里面就可以了
+
 # pnpm
 
 ```bash
@@ -139,7 +163,7 @@ pnpm store path          # 显示全局存储位置（默认：系统特定目�
 # npm
 
 npm config set registry https://registry.npmmirror.com //设置成阿里的 npm 源
-npm config set registry=https://registry.npmjs.org //原生的源
+npm config set registry https://registry.npmjs.org //原生的源
 
 http://nexus.mixcapp.cn/repository/npm-hosted/ // 华润的 npm 源
 
