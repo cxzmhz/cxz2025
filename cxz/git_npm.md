@@ -145,6 +145,27 @@ cat ~/.ssh/id_rsa.pub
 
 > 把输出的所有内容都要复制出来，然后粘贴到对应仓库的`SSH keys`里面就可以了
 
+## 使用 git 拉取项目下的特定目录(利用 git 的 sparse-checkout 特性)
+
+```bash
+# 创建空仓库
+mkdir client-sdk-js-example && cd client-sdk-js-example
+git init
+
+# 启用稀疏检出
+git config core.sparseCheckout true
+
+# 指定要检出的目录（多个目录可添加多行）
+echo "examples/react" >> .git/info/sparse-checkout
+
+# 添加远程仓库
+git remote add origin https://github.com/livekit/client-sdk-js.git
+
+# 拉取指定分支（这里以 main 分支为例）
+git pull origin main
+
+```
+
 # pnpm
 
 ```bash
