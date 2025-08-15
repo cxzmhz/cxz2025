@@ -8,51 +8,7 @@
   <body>
   </body>
     <script>
-      !(function (window) {
-      const host = "https://aibeings-vip.xiaoice.com",
-          url = host +
-          "/CRTCPreview/cb1986912bf744769422051d9457babe?sign=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYbHNiMkZrSWpvaWUxd2lZMjl0Y0dGdWVVbGtYQ0k2WENKaE9UWmlNR0psT0MweVkyRXhMVFEzWlRZdFlUSTBaaTB5TURRelptTmhNMlV3TldOY0lpeGNJbWxrWlc1MGFXWnBZMkYwYVc5dVNXUmNJanBjSWpJell6WTRPV1V6TFRRek1tTXRNVEZsWlMwNE5ETXhMVFprTXpCaE1ESTFOVGN4TUMxcGJuUmxjbUZqZEdsMlpTMWlZV05yWlc1a1hDSXNYQ0owYjJ0bGJrbGtYQ0k2WENKak5XUTBNR001TTJNeFlUTTBOVE14WVROak5qVTRZMlF6WkdGaVlUWmxNVndpZlNJc0ltbGhkQ0k2TVRjMU16TXpPRFV4TUN3aVpYaHdJam95TmpFM016TTROVEV3ZlEuRUl6YzU1WDRncE90M1pkSnZHSmstZTQtS1dIMTZKc1VyMGM3bDJVUFdpaw==&isIFrame=1";
-      const wrapDiv = document.createElement("div");
-      wrapDiv.id = "xiaoice-streaming-embed";
-      const container = document.createElement("div");
-      container.id = "xiaoice-streaming-container";
-      const stylesheet = document.createElement("style");
-      const clientWidth = document.body.clientWidth;
-      stylesheet.innerHTML =
-          " #xiaoice-streaming-embed { z-index: 9999; position: fixed; right: 60px; bottom: 60px; width: 200px; height: 200px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.12); overflow: hidden; } #xiaoice-streaming-embed.horizontal { height: 366px;  width: calc(366px * 16 / 9); border: 0; border-radius: 12px; box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.10); } #xiaoice-streaming-embed.vertical { height: 680px;  width: calc(680px * 9 / 16); border: 0; border-radius: 12px; box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.10); } #xiaoice-streaming-container { width: 100%; height: 100%; } #xiaoice-streaming-container iframe { width: 100%; height: 100%; border: 0; }";
-      const iframe = document.createElement("iframe");
-      (iframe.allowFullscreen = !1);
-      (iframe.title = "Streaming Embed");
-      (iframe.role = "dialog");
-      (iframe.allow = "microphone");
-      (iframe.src = url);
-      (iframe.onload = () => {
-          const watchDiv = document.getElementById('xiaoice-streaming-embed');
-          const resizeObserver = new ResizeObserver(() => {
-              iframe.contentWindow.postMessage({
-                  action: "resize"
-              }, '*');
-          });
-          resizeObserver.observe(watchDiv);
-      });
-      window.addEventListener("message", (e) => {
-          if (e.origin !== host) return;
-          if (e.data.action === 'start') {
-              if (e.data.ratio === 'horizontal') {
-                  wrapDiv.classList.toggle("horizontal", true)
-              } else if (e.data.ratio === 'vertical') {
-                  wrapDiv.classList.toggle("vertical", true)
-              }
-          } else if (e.data.action === 'close') {
-              wrapDiv.classList.toggle("horizontal", false);
-              wrapDiv.classList.toggle("vertical", false)
-          }
-      });
-      container.appendChild(iframe);
-      wrapDiv.appendChild(stylesheet);
-      wrapDiv.appendChild(container);
-      document.body.appendChild(wrapDiv)
-  })(globalThis);
+    !(function(window){const host="https://aibeings-vip-int.xiaoice.com",url=host+"/CRTCPreview/9cdc846efe4e45198fea436065f7fd49?sign=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKd1lYbHNiMkZrSWpvaWUxd2lZMjl0Y0dGdWVVbGtYQ0k2WENKbVpqbGxaV1EyWkMweU16TXhMVFEwWm1ZdE9XWmpZUzAzWkRkak1EWXpNREJoWlRsY0lpeGNJbWxrWlc1MGFXWnBZMkYwYVc5dVNXUmNJanBjSWpJell6WTRPV1V6TFRRek1tTXRNVEZsWlMwNE5ETXhMVFprTXpCaE1ESTFOVGN4TUMxcGJuUmxjbUZqZEdsMlpTMWlZV05yWlc1a1hDSXNYQ0owYjJ0bGJrbGtYQ0k2WENJM01EWmpaVEUyTURZd09EQTBNMkUwWW1VMk9ETm1NMlF5WWpjMk5HWTJPRndpZlNJc0ltbGhkQ0k2TVRjMU5URTFOelEyTVN3aVpYaHdJam95TmpFNU1UVTNORFl4ZlEuY0UwdU9PT21fOUg5b3NjczlUd25VUHNTdWlvUEtUWDVvRzdvMFBKTXJERQ==&isIFrame=1";const wrapDiv=document.createElement("div");wrapDiv.id="xiaoice-streaming-embed";const container=document.createElement("div");container.id="xiaoice-streaming-container";const stylesheet=document.createElement("style");const clientWidth=document.body.clientWidth;stylesheet.innerHTML=" #xiaoice-streaming-embed { z-index: 9999; position: fixed; right: 60px; bottom: 60px; width: 200px; height: 200px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.12); overflow: hidden; } #xiaoice-streaming-embed.horizontal { height: 366px;  width: calc(366px * 16 / 9); border: 0; border-radius: 12px; box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.10); } #xiaoice-streaming-embed.vertical { height: 680px;  width: calc(680px * 9 / 16); border: 0; border-radius: 12px; box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.10); } #xiaoice-streaming-container { width: 100%; height: 100%; } #xiaoice-streaming-container iframe { width: 100%; height: 100%; border: 0; }";const iframe=document.createElement("iframe");(iframe.allowFullscreen=!1);(iframe.title="Streaming Embed");(iframe.role="dialog");(iframe.allow="microphone");(iframe.src=url);(iframe.onload=()=>{const watchDiv=document.getElementById('xiaoice-streaming-embed');const resizeObserver=new ResizeObserver(()=>{iframe.contentWindow.postMessage({action:"resize"},'*');});resizeObserver.observe(watchDiv);});window.addEventListener("message",(e)=>{if(e.origin!==host)return;if(e.data.action==='start'){if(e.data.ratio==='horizontal'){wrapDiv.classList.toggle("horizontal",true)}else if(e.data.ratio==='vertical'){wrapDiv.classList.toggle("vertical",true)}}else if(e.data.action==='close'){wrapDiv.classList.toggle("horizontal",false);wrapDiv.classList.toggle("vertical",false)}});container.appendChild(iframe);wrapDiv.appendChild(stylesheet);wrapDiv.appendChild(container);document.body.appendChild(wrapDiv)})(globalThis);
     </script>
 
 </html>

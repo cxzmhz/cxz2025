@@ -155,14 +155,14 @@ git init
 # 启用稀疏检出
 git config core.sparseCheckout true
 
-# 指定要检出的目录（多个目录可添加多行）
-echo "examples/react" >> .git/info/sparse-checkout
+# (这步不用执行，直接去其他项目代码里面拷贝这个sparse-checkout文件更好)指定要检出的目录（多个目录可添加多行）
+echo "private/SDK/asrSDKInteraction" >> .git/info/sparse-checkout
 
 # 添加远程仓库
-git remote add origin https://github.com/livekit/client-sdk-js.git
+git remote add origin https://aibeings@dev.azure.com/aibeings/aibeings/_git/AvatarFrontEnd
 
 # 拉取指定分支（这里以 main 分支为例）
-git pull origin main
+git pull origin master
 
 ```
 
